@@ -1,2 +1,2 @@
 # i8sumPi.github.io
-At this point, this is just a test domain, my projects are really at http://kiraprograms.com
+My actual website is kiraprograms.com. Since kiraprograms is HTTP, certain projects don't work. Because of that, I host them here.
