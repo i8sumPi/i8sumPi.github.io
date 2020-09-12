@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Notifications</title>
+	<link rel="icon" href="icon.png" type="image/png"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style type="text/css">
+button:not(#enable){
+	background-color: #9a4ef2;
+	border: 2px solid transparent;
+	color: white;
+	padding: 10px;
+	border-radius: 20px;
+	outline: none;
+	box-shadow: 0 0 5px grey;
+	transition: 0.2s;
+}
+button:not(#enable):hover{
+	border-color: white;
+}
+button:not(#enable):active{
+	border-color: transparent;
+}
+
+input{
+	padding: 7px;
+	width: 30em;
+}
+</style>
+
+</head>
+<body>
+	<button id="enable" style="width: calc(100vw - 10px); height: calc(100vh - 55px); position: absolute;">Get Started</button>
+
+	<h1>Notifier</h1>
+
+	Send yourself notifications or reminders so you can stay organized!<br><br>
+	Body: <input type="text" id="body" value="this is very important!" autofocus><br><br><br><br>
+
+	<button id="sendYourself">Send Now</button><br>
+
+	Send in <input type="text" id="timeFromNow" placeholder="hours:minutes:seconds">
+	<button id="sendFromNow">Send</button><br>
+
+	Send at <input type="text" id="time" placeholder="hours:minutes:AM/PM">
+	<button id="sendTime">Send</button>
+
+	<script type="text/javascript" src="main.js"></script>
+</body>
+</html>
