@@ -1,5 +1,7 @@
 var el = id=>document.getElementById(id);
 
+el("body").select();
+
 el("enable").onclick = ()=>{
 	el("enable").style.display = "none";
 	window.Notification.requestPermission(permission=>{
@@ -19,20 +21,26 @@ navigator.serviceWorker.ready.then((registration) => {
 		el("enable").style.display = "none";
 	}
 });
-el("sendYourself").onclick = async ()=>{
+el("sendYourself").onclick = ()=>{
 	navigator.serviceWorker.controller.postMessage({
-		title: el("title").value,
-		body: el("body").value
+		body: el("body").value,
+		time: 0
 	});
 }
-el("sendYourselfLater").onclick = ()=>{
-	setTimeout(()=>navigator.serviceWorker.controller.postMessage({
-		title: el("title").value,
-		body: el("body").value
-	}), 1000);
-}
+el("sendFromNow").onclick = ()=>{
+	var timeFromNow = el("timeFromNow").value.split(":");
+	if(timeFromNow.length != 3 && timeFromNow.length != 2) return alert("Invalid time. Make sure to do hours:minutes:seconds with just numbers.");
 
-el("update").onclick = ()=>{
-	var swRegistration = JSON.parse(localStorage.getItem("swRegistration"));
-	console.log(swRegistration);
+	var hrs = parseInt(timeFromNow[0]);
+	var mins = parseInt(timeFromNow[1]);
+	var secs = parseInt(timeFromNow[2]);
+
+	if(isNaN(mins) || isNaN(hrs) || isNaN(secs)) return alert("Invalid time. Make sure to do hours:minutes:seconds with just numbers.");
+
+	console.log("It's gonna send in "+mins*60000 + hrs*3600000 + secs*1000+" milliseconds!");
+
+	navigator.serviceWorker.controller.postMessage({
+		body: el("body").value,
+		time: mins*60000 + hrs*3600000 + secs*1000
+	});
 }

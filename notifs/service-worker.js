@@ -1,10 +1,9 @@
 self.addEventListener('message', event=>{
-	console.log(event);
-	self.registration.showNotification(event.data.title, {
+	setTimeout(()=>	self.registration.showNotification("REMEMBER:", {
 		body: event.data.body,
-		badge: "icon.png",
+		badge: "exclaim.png",
 		icon: "icon.png"
-	});
+	}), event.data.time);
 });
 
 self.addEventListener('activate', () => {
