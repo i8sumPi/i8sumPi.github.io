@@ -1,16 +1,12 @@
-function sendNotif(title, content){
-	self.registration.showNotification(title, {
-		body: content,
-	});
-}
-
 self.addEventListener('message', event=>{
-	sendNotif("it is happening", "yeeee");
+	console.log(event);
+	self.registration.showNotification(event.data.title, {
+		body: event.data.body,
+		badge: "icon.png",
+		icon: "icon.png"
+	});
 });
 
 self.addEventListener('activate', () => {
 	console.log("I have been activated!");
-
-
-	//setTimeout(sendNotif, 5000, "Test Notification", "This is a test this is a test.");
 })

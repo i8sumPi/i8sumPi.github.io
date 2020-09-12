@@ -1,20 +1,31 @@
 var el = id=>document.getElementById(id);
 var swRegistration;
 
-el("enable").onclick = async ()=>{
+el("enable").onclick = ()=>{
 	el("enable").style.display = "none";
-	swRegistration = await navigator.serviceWorker.register('service-worker.js');
-	const permission = await window.Notification.requestPermission();
+	window.Notification.requestPermission(permission=>{
+		if(permission != "granted") alert(permission);
+		swRegistration = navigator.serviceWorker.register('service-worker.js');
+	});
 }
 
 navigator.serviceWorker.ready.then((registration) => {
 	if(!navigator.serviceWorker.controller){
 		alert("Error! Refreshing your page.");
 		location.reload();
-	}
-	el("sendYourself").onclick = async ()=>{
-		navigator.serviceWorker.controller.postMessage({
-			type: 'MESSAGE_IDENTIFIER',
-		});
+	}else{
+		el("enable").style.display = "none";
 	}
 });
+el("sendYourself").onclick = async ()=>{
+	navigator.serviceWorker.controller.postMessage({
+		title: el("title").value,
+		body: el("body").value
+	});
+}
+el("sendYourselfLater").onclick = ()=>{
+	setTimeout(()=>navigator.serviceWorker.controller.postMessage({
+		title: el("title").value,
+		body: el("body").value
+	}), 1000);
+}
