@@ -9,4 +9,4 @@ self.addEventListener('message', event=>{
 
 self.addEventListener('activate', () => {
 	console.log("I have been activated!");
-})
+});

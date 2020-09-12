@@ -1,11 +1,13 @@
 var el = id=>document.getElementById(id);
-var swRegistration;
 
 el("enable").onclick = ()=>{
 	el("enable").style.display = "none";
 	window.Notification.requestPermission(permission=>{
 		if(permission != "granted") alert(permission);
-		swRegistration = navigator.serviceWorker.register('service-worker.js');
+		navigator.serviceWorker.register('service-worker.js').then(swRegistration=>{
+			console.log(swRegistration, JSON.stringify(swRegistration));
+			localStorage.setItem("swRegistration", JSON.stringify(swRegistration));
+		});
 	});
 }
 
@@ -28,4 +30,9 @@ el("sendYourselfLater").onclick = ()=>{
 		title: el("title").value,
 		body: el("body").value
 	}), 1000);
+}
+
+el("update").onclick = ()=>{
+	var swRegistration = JSON.parse(localStorage.getItem("swRegistration"));
+	console.log(swRegistration);
 }
